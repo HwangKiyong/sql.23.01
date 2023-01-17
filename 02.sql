@@ -35,7 +35,7 @@ where job_id != 'IT_PROG';
 select last_name, salary
 from employees
 where salary between 2500 and 3500;
---between A and B 면 A이상 B이하이다.
+--between A and B 면 A이상 B이하이다. 실선의 형태이다.
 
 select last_name
 from employees
@@ -88,3 +88,5 @@ where last_name like '%s%';
 select last_name, hire_date
 from employees
 where hire_date like '2005%';
+
+
