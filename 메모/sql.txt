@@ -47,3 +47,6 @@ git config --global user.email 'a@a.com'
 git config --global user.name '황기용'
 
 git config --global init.defaultBranch master
+
+cd c:/DEV/workspace/sql -> dir -> git init -> git remote add origin http://github.com/HwangKiyong/sql.23.01.git
+-> git add* -> git commit -m 'first' -> git push --set-upstream origin master
