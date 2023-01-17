@@ -1,0 +1,49 @@
+alter user hr account unlock;
+alter user hr identified by hr;
+
+
+
+테이블 네임은 복수형으로 쓴다.
+
+DEPARTMENTS 는 부서 
+
+EMPLOYEE_ID 사번
+
+VARCHAR (Variable charecter)
+
+JOB_HISTORY 과거의 직업
+
+table 은 데이터의 집합이다.
+
+LOCATIONS 동네
+
+COUNTRIES 나라
+
+select (칼럼네임)* from (테이블네임);
+
+relation의 동의어가 table이다.
+
+RDBMS 관계형 데이터베이스를 만들고 업데이트하고 관리하는데 사용하는 프로그램이다.
+
+table model 까지는 logical하다.
+
+EMPLOYEE -------- DEPARTMENT 점선은 될수 있다 , 실선은 ~이다. 
+
+#은 KEY라는 뜻이다.
+*은 필수이다.
+o 옵션, 없을수도 있다.
+foreign(포린) key 로 relationship 을 표현한다.
+
+2차원형태로 구분짓는것이 table이다 구분선이 있는것이 table이 아니다.
+보기좋게 해놓은거 뿐이다.
+
+departments 스키마는 hr에만 있다.
+
+
+git 설정하는것---------------------------------
+
+git config --global user.email 'a@a.com'
+
+git config --global user.name '황기용'
+
+git config --global init.defaultBranch master
