@@ -79,3 +79,93 @@ select employee_id, concat(first_name, last_name) name,
     job_id, length(last_name), instr(last_name, 'a') "Contains 'a'?"
 from employees
 where job_id like '%PROG';
+
+/* 과제:이름이 J나 A나 M으로 시작하는 사원들의 이름, 이름의 글자수를 조회하라.
+      이름의 첫글자는 대문자, 나머지는 소문자로 출력한다. */
+select last_name, length(last_name) 
+from employees
+where last_name like 'J%' 
+      or last_name like 'A%'
+      or last_name like 'M%';
+
+
+select initcap(last_name), length(last_name) --initcap으로 첫글자만 대문자를 출력한다.
+from employees
+where last_name like 'J%' or
+    last_name like 'A%' or
+    last_name like 'M%';
+    
+select round(45.926, 2) --소수점 올림처리 2번째 parameter는 소수점 자리수를 표기한다.
+from dual;
+
+select trunc(45.926 , 2) --소수점 내림처리
+from dual;
+
+select round(45.923, 0), round(45.923)
+from dual; --반올림
+select trunc(45.926, 0), trunc(45.923)
+from dual; --내림
+
+-- 과제: 사원들의 이름, 월급, 15.5% 인상된 월급(New Salary, 정수), 인상액(Increase)을 조회하라.
+select last_name, salary, salary + round(salary* 0.155) "New Salary" , salary * 0.155 "Increase"
+from employees;
+
+select last_name, salary,
+    round(salary * 1.155) " New Salary",
+    round(salary * 1.155) - salary "Increase"
+from employees;    
+
+select sysdate
+from dual;
+--sysdate 출력하는날의 날짜를 보여준다
+
+select sysdate + 1
+from dual;
+
+select sysdate - 1
+from dual;
+
+select sysdate - sysdate
+from dual;
+
+select last_name, sysdate - hire_date
+from employees
+where department_id = 90;
+
+select months_between('2023/12/31', '2022/12/31')
+from dual;
+--날짜사이의 개월수를 리턴한다.
+
+select add_months('2023/01/18', 3)
+from dual;
+--개월수를 더해준다.
+
+select next_day('2023/01/18' , 4) 
+from dual;
+--2번째 파라미터는 1 = 일요일 2 = 월요일 로 지나간다. 
+--적은 날짜 후에 요일을 날짜로 지정해준다.
+
+select next_day('2023/01/18' , 'thursday') 
+from dual;
+-- 문자로 써줘도된다.
+select next_day('2023/01/18' , 'thu') 
+from dual;
+
+select last_day('2023/01/18')
+from dual;
+--날짜의 말일을 구하는것이다.
+
+--과제: 20년 이상 재직한 사원들의 이름, 첫월급일을 조회하라.
+--      월급을 매월 말일에 지급한다.
+select last_name ,last_day(hire_date)
+from employees
+where months_between(sysdate, hire_date) >= 12 *20; --20년이상을 표기한것이다.
+
+-- 과제: 사원들의 이름, 월급 그래프를 조회하라.
+--       그래프는 $1000 당 * 하나를 표시하라.
+select last_name, salary, rpad(' ', salary / 1000 + 1, '*') sal
+from employees
+order by sal desc;
+
+
+
