@@ -196,7 +196,7 @@ from employees;
 select case salary when 1 then '1'
                    when 2 then '2'
                    else '0'
-      end grade
+      end salary
 from employees;
 
 select last_name, salary,
@@ -224,3 +224,9 @@ order by case day
 --       2005년 이후에 입사한 사원들에게 10만원 상품권을 지급한다.
 --       사원들의 이름, 입사일, 상품권 금액을 조회하라.
 
+select last_name, hire_date,
+    case when hire_date <= '2005/12/31' then '100만원'
+        else '10만원' end gift
+from employees
+order by gift, hire_date;
+          
