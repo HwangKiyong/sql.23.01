@@ -1,7 +1,7 @@
---single function
+--single function ,parameter로 row하나가 들어간다 
 desc dual
 select * from dual;
-
+ 
 select lower('SQL Course')
 from dual;
 --lower 은 소문자로 출력한다.
@@ -27,13 +27,13 @@ where lower(last_name) = 'higgins';
 
 select concat('Hello', 'World')
 from dual;
-
+--concat은 문자열을 연결한다.
 select substr('HelloWorld', 2, 5) --시작이 2이고 5글자인것을 표현한것이다.
 from dual;
 
 select substr('Hello', -1 , 1)
 from dual;
-
+-- -를 주게되면 뒤에서부터 시작한다.
 select length('Hello')
 from dual;
 
@@ -43,7 +43,7 @@ from dual;
 --return 값이 0보다 크다면 l이있는것이고 작다면 없는것이다(java에서)
 select instr('Hello', 'w')
 from dual;
-
+-- 해당 글자가 없으면 0을 리턴한다.
 select lpad(salary, 5, '*')
 from employees;
 --lapd 왼쪽을 채운다.
@@ -84,9 +84,9 @@ where job_id like '%PROG';
       이름의 첫글자는 대문자, 나머지는 소문자로 출력한다. */
 select last_name, length(last_name) 
 from employees
-where last_name like 'J%' 
-      or last_name like 'A%'
-      or last_name like 'M%';
+where last_name like 'J%' or
+       last_name like 'A%' or
+       last_name like 'M%';
 
 
 select initcap(last_name), length(last_name) --initcap으로 첫글자만 대문자를 출력한다.
@@ -104,7 +104,7 @@ from dual;
 select round(45.923, 0), round(45.923)
 from dual; --반올림
 select trunc(45.926, 0), trunc(45.923)
-from dual; --내림
+from dual; --반내림
 
 -- 과제: 사원들의 이름, 월급, 15.5% 인상된 월급(New Salary, 정수), 인상액(Increase)을 조회하라.
 select last_name, salary, salary + round(salary* 0.155) "New Salary" , salary * 0.155 "Increase"
@@ -117,7 +117,7 @@ from employees;
 
 select sysdate
 from dual;
---sysdate 출력하는날의 날짜를 보여준다
+--sysdate 오늘날짜를 보여준다
 
 select sysdate + 1
 from dual;
@@ -166,6 +166,3 @@ where months_between(sysdate, hire_date) >= 12 *20; --20년이상을 표기한것이다.
 select last_name, salary, rpad(' ', salary / 1000 + 1, '*') sal
 from employees
 order by sal desc;
-
-
-
