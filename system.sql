@@ -1,2 +1,2 @@
-alter user hr account unlock;
-alter user hr identified by hr;
+create user you identified by you;
+grant connect, resource to you;

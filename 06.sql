@@ -1,5 +1,5 @@
 --join 
-select department_id, department_name, location_id
+select department_id, department_name, location_id 
 from departments;
 --부서 데이터 (부서사번, 부서명, 지역사번)
 select location_id, city
@@ -117,7 +117,7 @@ order by 1, 2, 3;
 select e.last_name , e.hire_date
 from employees e join employees d
 on d.last_name = 'Davies'
-and e.hire_date > d.hire_date;
+and e.hire_date > d.hire_date;ㄴ
 
 --과제: 매니저보다 먼저 입사한 사원들의 이름, 입사일, 매니저명, 매니저 입사일을 조회하라.
 select w.last_name, w.hire_date, m.last_name, m.hire_date

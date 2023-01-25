@@ -1,5 +1,5 @@
 --java 에선 List(key가 있다)는 중복된 값이 들어가고 set(key가 없다)은 중복된 값이 들어가지 않는다.
---set에서는 집합연산자(여집합,합집합,차지합 등등)에 관련된 공부를한다.
+--set에서는 집합연산자(여집합,합집합,차집합 등등)에 관련된 공부를한다.
 select employee_id, job_id
 from employees
 union --중복제거를 한다.
@@ -34,5 +34,31 @@ from employees e, job_history j
 where e.employee_id = j.employee_id
 and e.job_id = j.job_id;
 
+select location_id, department_name
+from departments
+union
+select location_id, state_province
+from locations;
 
+--과제: 위문장을 service 관점에서 고쳐라.
+--      union 을 사용하라.
 
+select location_id, department_name , null state
+from departments
+union 
+select location_id, null, state_province
+from locations;
+
+select employee_id, job_id, salary
+from employees
+union
+select employee_id, job_id
+from job_history;
+--칼럼 갯수가 맞지않기에 오류이다.
+
+select employee_id, job_id, salary
+from employees
+union
+select employee_id, job_id, 0
+from job_history
+order by salary;
