@@ -53,7 +53,7 @@ employee_id number(6) constraint emp_empid_pk primary key,
 first_name varchar2(20),
 last_name varchar2(25) constraint emp_lastname_nn not null,
 email varchar2(25) constraint emp_email_nn not null
-                  constraint emp_mail_uk unique,
+                  constraint emp_email_uk unique,
 phone_number varchar2(20),
 hire_date date constraint emp_hiredate_nn not null,
 job_id varchar2(10) constraint emp_jobid_nn not null,
@@ -104,16 +104,16 @@ aid number(1) constraint a_aid_pk primary key);
 create table b (
 bid number(2),
 aid number(1),
-constraint b_aid_fik foreign key(aid) references a(aid));
---fik 오타 원래는 fk여야됨.
+constraint b_aid_fk foreign key(aid) references a(aid));
+
 insert into a values(1);
 insert into b values(31, 1);
 insert into b values(32, 9); --9란게 부모테이블에 없으므로 오류이다.
 
-alter table b disable constraint b_aid_fik; --fik오타이다 fk여야된다.
+alter table b disable constraint b_aid_fk; 
 
-alter table b enable constraint b_aid_fik; --부모테이블에 없기때문에 오류이다.
-alter table b enable novalidate constraint b_aid_fik;
+alter table b enable constraint b_aid_fk; --부모테이블에 없기때문에 오류이다.
+alter table b enable novalidate constraint b_aid_fk;
 
 insert into b values(33, 8);
 
