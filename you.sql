@@ -43,3 +43,105 @@ select constraint_name, constraint_type, table_name
 from user_constraints;
 
 select * from depts;
+--system유저로 전환해야 함
+grant all on hr.departments to you;
+--해석:hr.departments스키마를 you에게 권한을 주겠다 
+--you 유저로 전환해야 함
+drop table employees cascade constraints;
+create table employees(
+employee_id number(6) constraint emp_empid_pk primary key,
+first_name varchar2(20),
+last_name varchar2(25) constraint emp_lastname_nn not null,
+email varchar2(25) constraint emp_email_nn not null
+                  constraint emp_mail_uk unique,
+phone_number varchar2(20),
+hire_date date constraint emp_hiredate_nn not null,
+job_id varchar2(10) constraint emp_jobid_nn not null,
+salary number(8) constraint emp_salary_ck check(salary > 0),
+commission_pct number(2, 2),
+manager_id number(6) constraint emp_managerid_fk references employees(employee_id),
+department_id number(4) constraint emp_dept_fk references hr.departments(department_id));
+--email에 not null과 unique제약을 주었지만 primary key와는 다른것이다.
+
+create table gu (
+gu_id number(3) primary key,
+gu_name char(9) not null);
+--부모테이블
+create table dong (
+dong_id number(4) primary key,
+dong_name varchar2(12) not null,
+gu_id number(3) references gu(gu_id) on delete cascade); --부모가 delete되면 자식도 delete된다.
+--자식테이블
+--gu table과 dong table을 references로 관계를 표시한것이다.
+create table dong2(
+dong_id number(4) primary key,
+dong_name varchar2(12) not null,
+gu_id number(3) references gu(gu_id) on delete set null);
+
+insert into gu values(100, '강남구');
+insert into gu values(200, '노원구');
+
+insert into dong values(5000, '압구정동', null);
+insert into dong values(5001, '삼성동', 100);
+insert into dong values(5002, '역삼동', 100);
+insert into dong values(6001, '상계동', 200);
+insert into dong values(6002, '중계동', 200);
+
+insert into dong2
+select * from dong;
+
+delete gu
+where gu_id = 100;
+
+select * from dong;
+select * from dong2;
+
+commit;
+
+create table a (
+aid number(1) constraint a_aid_pk primary key);
+
+create table b (
+bid number(2),
+aid number(1),
+constraint b_aid_fik foreign key(aid) references a(aid));
+--fik 오타 원래는 fk여야됨.
+insert into a values(1);
+insert into b values(31, 1);
+insert into b values(32, 9); --9란게 부모테이블에 없으므로 오류이다.
+
+alter table b disable constraint b_aid_fik; --fik오타이다 fk여야된다.
+
+alter table b enable constraint b_aid_fik; --부모테이블에 없기때문에 오류이다.
+alter table b enable novalidate constraint b_aid_fik;
+
+insert into b values(33, 8);
+
+create table sub_departments as
+    select department_id dept_id, department_name dept_name
+    from hr.departments;
+
+select * from sub_departments;
+
+create table users(
+user_id number(3));
+desc users
+
+alter table users add(user_name varchar2(10));
+desc users
+--add 추가 , modify 수정
+alter table users modify(user_name number(7));
+desc users
+
+alter table users drop column user_name; --삭제
+desc users
+
+insert into users values(1);
+
+alter table users read only; --읽기 전용이다.
+insert into users values(2); --읽기 전용이되어 추가가 불가능하다.
+
+alter table users read write; --쓰기 전용이다.
+insert into users values(2);
+
+commit;
